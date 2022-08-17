@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+:root {
+  --black: #191919;
+  --black-trans: #191919a6;
+  --slate: #c0c2c9;
+  --slate-dark: #9a9ca1;
+}
 * {
   padding: 0;
   border: 0;
@@ -5,17 +13,74 @@
   box-sizing: border-box;
 }
 
-.container {
-  width: 100%;
-  height: max-content;
-  display: flex;
-  flex-direction: row;
-  border: 2px solid black;
-  justify-content: space-around;
-  align-items: center;
+/* Fixes the google autofill bug where the background changes to some other color */
+input:-webkit-autofill {
+  background-clip: initial;
+  -webkit-text-fill-color: white !important;
+  -webkit-background-clip: text;
 }
 
-/* temp design */
+/* Avoid the user from taking screenshots using Ctrl + p */
+@media print {
+  html,
+  body {
+    display: none; /* hide whole page */
+  }
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #000000 #707070;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #707070;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+}
+
+/* Main CSS */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--slate);
+}
+p {
+  margin-bottom: 20px;
+}
+a {
+  text-decoration: none;
+  color: rgb(0, 221, 255);
+}
+button {
+  background-color: inherit;
+  color: inherit;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.spinner {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+}
+.spinner img {
+  width: 40%;
+}
 
 .toolBar {
   display: flex;
@@ -28,12 +93,172 @@
   align-items: center;
   gap: 1em;
 }
-.formDyad {
+.container {
+  background: url('../public/Back1.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+
+  box-shadow: inset 4px 8px 7px -4px rgba(0, 0, 0, 0.75);
+  /* 90vh + 5px for adjusting white Space */
+  min-height: calc(90vh + 5px);
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.paperContainer {
+  align-self: center;
+  background-color: var(--black-trans);
+  border-radius: 12px;
+  width: 60%;
+  padding: 4%;
+  margin: 4%;
+}
+.mainHeading {
+  font-size: 320%;
+  color: var(--slate);
+}
+
+.subHeading {
+  font-size: 150%;
+  color: var(--slate-dark);
+}
+
+footer {
+  text-align: center;
+  background-color: var(--black);
+  padding: 1em;
+}
+/* Message center */
+
+/* The two containers under the main container */
+.subContainer {
+  display: flex;
+  justify-content: space-evenly;
+  height: calc(90vh + 5px);
+  justify-content: center;
+
+  flex-direction: column;
+  width: 50%;
+}
+/* Left section */
+.roomForm {
   display: flex;
   flex-direction: column;
-  gap: 1em;
   border: 1px solid rgb(131, 127, 127);
   border-radius: 15px;
   padding: 3em;
+  gap: 1em;
+}
+/* Right section */
 
+.messageContainer {
+  background-color: var(--black-trans);
+  border: 2px solid red;
+}
+.noChatRoom {
+  padding: 2em;
+  text-align: center;
+}
+.chatRoom {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Maybe useless, will see. */
+.chatRoomSubContainers {
+  display: flex;
+  width: 100%;
+}
+/* Note- the P tag for chatroom is inline styled for this container. */
+
+.messageHeader {
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--black);
+  padding: 2em;
+  height: 10%;
+}
+
+/* Mssg list container */
+.messageList {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 80%;
+}
+
+.chatBubble {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em;
+}
+.text {
+  border-radius: 20px;
+  background-color: var(--black-trans);
+  color: var(--slate-dark);
+  margin-bottom: 0;
+  width: fit-content;
+  padding: 1em;
+}
+.sent {
+  justify-content: flex-end;
+}
+.received {
+  justify-content: flex-start;
+}
+
+/* Send message container */
+.sendMessage {
+  justify-content: space-evenly;
+  border: 2px solid black;
+  align-items: center;
+  padding: 0 1em;
+  height: 10%;
+  gap: 0.5em;
+}
+@media only screen and (max-width: 1024px) {
+  .container {
+    background-position: 100%;
+  }
+  .chatContainer {
+    flex-direction: column;
+  }
+  .subContainer {
+    width: 100%;
+    border: 2px solid red;
+  }
+  .paperContainer {
+    align-self: flex-start;
+    justify-self: flex-start;
+    margin: 0 auto;
+    border-radius: 0;
+    width: 100%;
+  }
+  .mainHeading {
+    font-size: calc(320% / 1.2);
+  }
+
+  .subHeading {
+    font-size: calc(150% / 1.2);
+  }
+}
+@media only screen and (max-width: 650px) {
+  .toolBar h2 {
+    display: none;
+  }
+  .mainHeading {
+    font-size: calc(320% / 1.4);
+  }
+  .subHeading {
+    font-size: calc(150% / 1.4);
+  }
 }

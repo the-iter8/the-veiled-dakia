@@ -1,20 +1,20 @@
 import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
-    type: 'dark',
     primary: {
-      main: '#3f51b5',
+      main: '#191919',
     },
     secondary: {
-      main: '#f50057',
+      main: '#fff',
     },
-  },
-  palette: {
-    mode: 'dark',
+    text: {
+      primary: '#ffffff',
+      secondary: '#fff',
+    },
   },
 });
 

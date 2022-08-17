@@ -4,10 +4,11 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Landing from './Components/Landing';
 import Navbar from './Components/Navbar';
 import MessageCenter from './Components/MessageCenter';
+import Spinner from './Components/Spinner';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDZMzN-E-k1ye4JCl8mmudhvIkKNMaL9dU',
@@ -26,9 +27,12 @@ export const Context = React.createContext();
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false);
+  const [spinner, setSpinner] = useState(true);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      setSpinner(false);
       if (user) {
         setCurrentUser(user);
       } else {
@@ -38,16 +42,30 @@ function App() {
   }, []);
 
   return (
-    <Context.Provider value={{ db, auth, currentUser }}>
-      <Navbar></Navbar>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path='/'
-            element={currentUser ? <MessageCenter /> : <Landing />}
-          />
-        </Routes>
-      </BrowserRouter>
+    <Context.Provider
+      value={{
+        db,
+        auth,
+        users,
+        currentUser,
+        setUsers,
+        setSpinner,
+        setCurrentUser,
+      }}
+    >
+      {spinner ? (
+        <Spinner />
+      ) : (
+        <BrowserRouter>
+          <Navbar></Navbar>
+          <Routes>
+            <Route
+              path='/'
+              element={currentUser ? <MessageCenter /> : <Landing />}
+            />
+          </Routes>
+        </BrowserRouter>
+      )}
     </Context.Provider>
   );
 }

@@ -6,35 +6,44 @@ import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
+import { BsMailbox } from 'react-icons/bs';
 
 export default function Navbar() {
-  const { auth, currentUser } = useContext(Context);
+  const { auth, users, setUsers, currentUser, setCurrentUser } =
+    useContext(Context);
   const clickSignOut = () => {
     signOut(auth)
       .then(() => {
-        console.log(currentUser);
+        setUsers(users.filter((item) => item !== currentUser.photoURL));
+        setCurrentUser(false);
       })
+
       .catch((error) => {
         console.log(error);
       });
   };
   return (
     <AppBar position='static'>
-      <Toolbar sx={{ background: 'white' }}>
+      <Toolbar>
         <div className='toolBar'>
           <div className='toolBarChild'>
-            <Avatar alt='Travis Howard' />
-            <Typography color="primary" variant='h5'>The Veiled Dakia</Typography>
+            <h2>The Veiled Dakia</h2>
+            <BsMailbox size={25} />
           </div>
           <div className='toolBarChild'>
-            <Button variant='outlined'>How it works?</Button>
+            <Button variant='outlined' color='secondary'>
+              How it works?
+            </Button>
             {currentUser && (
-              <Button variant='outlined' onClick={clickSignOut}>
+              <Button
+                variant='outlined'
+                color='secondary'
+                onClick={clickSignOut}
+              >
                 Sign Out
               </Button>
             )}
-            <Avatar alt='Travis Howard' src={currentUser.photoURL} />
+            <Avatar alt='N' src={currentUser.photoURL} />
           </div>
         </div>
       </Toolbar>
