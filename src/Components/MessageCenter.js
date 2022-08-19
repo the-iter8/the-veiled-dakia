@@ -11,7 +11,6 @@ import {
 
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
