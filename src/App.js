@@ -28,7 +28,6 @@ export const Context = React.createContext();
 function App() {
   const [currentUser, setCurrentUser] = useState(false);
   const [spinner, setSpinner] = useState(true);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -46,9 +45,7 @@ function App() {
       value={{
         db,
         auth,
-        users,
         currentUser,
-        setUsers,
         setSpinner,
         setCurrentUser,
       }}

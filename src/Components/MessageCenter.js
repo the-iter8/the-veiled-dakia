@@ -18,13 +18,12 @@ import TextField from '@mui/material/TextField';
 import { RiSendPlaneLine } from 'react-icons/ri';
 
 export default function MessageCenter() {
-  const { db, currentUser, users, setUsers } = useContext(Context);
+  const { db, currentUser } = useContext(Context);
   const [chatRoom, setChatRoom] = useState('');
   const [data, setData] = useState([]);
 
   const [messageField, setMessageField] = useState('');
   const [chatRoomField, setChatRoomField] = useState('');
-
 
   useEffect(() => {
     // remove warning.
@@ -43,11 +42,6 @@ export default function MessageCenter() {
   const joinRoom = async (e) => {
     e.preventDefault();
     setChatRoom(chatRoomField);
-
-    // add the new user to the chat room user list. 
-    if (!users.includes(currentUser.photoURL)) {
-      setUsers([...users, currentUser.photoURL]);
-    }
 
     try {
       await addDoc(collection(db, chatRoomField), {
@@ -92,6 +86,8 @@ export default function MessageCenter() {
     return (
       <div className={`${messageState} chatBubble`}>
         <Badge
+        // Setting so that the 
+          sx={{ maxWidth: '50%', wordBreak: 'break-all' }}
           badgeContent={
             <Avatar src={photo} sx={{ width: 25, height: 25 }}></Avatar>
           }
@@ -155,15 +151,6 @@ export default function MessageCenter() {
           ) : (
             <div className='chatRoom'>
               <header className='messageHeader chatRoomSubContainers'>
-                <div className='userList'>
-                  <AvatarGroup max={2}>
-                    {/* Check and fetch the images of users  */}
-                    {users.map((photo, index) => {
-                      return <Avatar src={photo} alt='username' key={index} />;
-                    })}
-                  </AvatarGroup>
-                </div>
-
                 <p className='subHeading' style={{ marginBottom: 0 }}>
                   Chatroom - {chatRoom}
                 </p>
@@ -190,7 +177,6 @@ export default function MessageCenter() {
               </div>
 
               <form
-                action=''
                 onSubmit={sendMessage}
                 className='sendMessage chatRoomSubContainers'
               >

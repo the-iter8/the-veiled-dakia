@@ -5,6 +5,7 @@
   --black-trans: #191919a6;
   --slate: #c0c2c9;
   --slate-dark: #9a9ca1;
+  --slate-trans: #c0c2c93e;
 }
 * {
   padding: 0;
@@ -68,6 +69,11 @@ button {
   color: inherit;
   padding: 1em;
   cursor: pointer;
+}
+.dialog {
+  background-color: var(--black);
+  padding: 5em;
+  text-align: justify;
 }
 
 .spinner {
@@ -157,7 +163,6 @@ footer {
 
 .messageContainer {
   background-color: var(--black-trans);
-  border: 2px solid red;
 }
 .noChatRoom {
   padding: 2em;
@@ -166,6 +171,8 @@ footer {
 .chatRoom {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--slate-trans);
   height: 100%;
   width: 100%;
 }
@@ -179,7 +186,6 @@ footer {
 
 .messageHeader {
   align-items: center;
-  justify-content: space-between;
   background-color: var(--black);
   padding: 2em;
   height: 10%;
@@ -189,15 +195,15 @@ footer {
 .messageList {
   display: flex;
   flex-direction: column;
-  justify-self: flex-start;
   overflow-y: scroll;
   overflow-x: hidden;
-  max-height: 80%;
+  height: 80%;
 }
 
 .chatBubble {
   display: flex;
   align-items: center;
+  word-wrap: break-word !important;
   gap: 0.5em;
   padding: 0.5em;
 }
@@ -206,7 +212,6 @@ footer {
   background-color: var(--black-trans);
   color: var(--slate-dark);
   margin-bottom: 0;
-  width: fit-content;
   padding: 1em;
 }
 .sent {
@@ -234,7 +239,6 @@ footer {
   }
   .subContainer {
     width: 100%;
-    border: 2px solid red;
   }
   .paperContainer {
     align-self: flex-start;
