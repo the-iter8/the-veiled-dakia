@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 
 :root {
-
+  --black: #191919;
+  --black-trans: #191919a6;
+  --slate: #c0c2c9;
+  --slate-dark: #9a9ca1;
+  --slate-trans: #c0c2c93e;
 }
 * {
   padding: 0;
