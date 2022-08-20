@@ -13,7 +13,6 @@ import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
 import { RiSendPlaneLine } from 'react-icons/ri';
 
 export default function MessageCenter() {
@@ -27,13 +26,23 @@ export default function MessageCenter() {
   useEffect(() => {
     // remove warning.
     const getData = async () => {
-      onSnapshot(collection(db, chatRoom), (querySnapshot) => {
-        const currentDoc = querySnapshot.docs;
-        const sorted = currentDoc.sort(function (a, b) {
-          return a.data().timestamp.seconds - b.data().timestamp.seconds;
-        });
-        setData(sorted);
-      });
+      onSnapshot(
+        collection(db, chatRoom),
+        (querySnapshot) => {
+          const currentDoc = querySnapshot.docs;
+          const sorted = currentDoc.sort(function (a, b) {
+            return a.data().timestamp.seconds - b.data().timestamp.seconds;
+          });
+          setData(sorted);
+          // It waits for the element to appear in the chatbox (for 0.01 seconds) then scrolls.
+          setTimeout(() => {
+            document
+              .getElementById('bottom')
+              .scrollIntoView({ behavior: 'smooth' });
+          });
+        },
+        10
+      );
     };
     getData();
   }, [db, chatRoom]);
@@ -85,7 +94,7 @@ export default function MessageCenter() {
     return (
       <div className={`${messageState} chatBubble`}>
         <Badge
-        // Setting so that the 
+          // Setting so that the words would wrap.
           sx={{ maxWidth: '50%', wordBreak: 'break-all' }}
           badgeContent={
             <Avatar src={photo} sx={{ width: 25, height: 25 }}></Avatar>
@@ -100,6 +109,23 @@ export default function MessageCenter() {
       </div>
     );
   };
+  //   return (
+  //     <Fab
+  //       size='large'
+  //       className='scrollToBottom'
+  //       variant='extended'
+  //       color='primary'
+  //       onClick={() => {
+  //         document
+  //           .getElementById('bottom')
+  //           .scrollIntoView({ behavior: 'smooth' });
+  //       }}
+  //       sx={{ position: 'absolute', bottom: '5px', right: '5px' }}
+  //     >
+  //       Go To ChatRoom
+  //     </Fab>
+  //   );
+  // };
 
   return (
     <>
@@ -136,6 +162,7 @@ export default function MessageCenter() {
               Discard Room
             </Button>
           </div>
+          {/* {chatRoom && <GoToBottom />} */}
         </div>
 
         <div className='messageContainer subContainer'>
